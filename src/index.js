@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button, FormControl, ControlLabel, FormGroup, HelpBlock} from 'react-bootstrap';
+import {Button, FormControl, ControlLabel, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
 import './index.css';
 
 class Game extends React.Component {
@@ -34,17 +34,24 @@ class Game extends React.Component {
 
     return (
       <div>
-        <div className="row">       
+
+        <Jumbotron>
+          <h1>Hello, world!</h1>
+          <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <p><Button bsStyle="primary">Learn more</Button></p>
+        </Jumbotron>
+
+        <div className="row"> 
+
           <div className="col-xs-4 col-xs-offset-4 text-center">
-
             <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
-
             <h1>{this.state.count}</h1>
-
           </div>
+
         </div>
         <div className="row">
           <div className="col-xs-4 col-xs-offset-4">
+
             <form>
               <FormGroup
                 controlId="formBasicText"
@@ -59,6 +66,8 @@ class Game extends React.Component {
                 <HelpBlock>Validation is based on string length.</HelpBlock>
               </FormGroup>
             </form>
+
+            <h1>{this.state.value}</h1>
           </div>
         </div> 
       </div>
