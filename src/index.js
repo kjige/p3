@@ -30,6 +30,39 @@ class Game extends React.Component {
     this.setState({ value: e.target.value });
   }
 
+  onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+  onPlayerReady(event) {
+    event.target.playVideo();
+  }
+
+  // 5. The API calls this function when the player's state changes.
+  //    The function indicates that when playing a video (state=1),
+  //    the player should play for six seconds and then stop.
+  onPlayerStateChange(event) {
+  // let done = false;
+    if (event.data == YT.PlayerState.PLAYING && !done) {
+      setTimeout(stopVideo, 6000);
+      done = true;
+    }
+  }
+
+  stopVideo() {
+    player.stopVideo();
+  }
+
+
   render() {
 
     return (
@@ -69,7 +102,10 @@ class Game extends React.Component {
 
             <h1>{this.state.value}</h1>
           </div>
+
         </div> 
+
+        
       </div>
     );
   }
