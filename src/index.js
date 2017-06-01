@@ -43,14 +43,14 @@ class Game extends React.Component {
 
         <div className="row"> 
 
-          <div className="col-xs-4 col-xs-offset-4 text-center">
+          <div className="col-xs-4 text-center">
             <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
             <h1>{this.state.count}</h1>
           </div>
 
         </div>
         <div className="row">
-          <div className="col-xs-4 col-xs-offset-4">
+          <div className="col-xs-4">
 
             <form>
               <FormGroup
