@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Button, FormControl, ControlLabel, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
 import './index.css';
 
+
 class Game extends React.Component {
   
   constructor(){
@@ -10,6 +11,7 @@ class Game extends React.Component {
     this.state = {
       count: 0,
       value: '',
+      entry: [],
     }
   }
 
@@ -30,38 +32,14 @@ class Game extends React.Component {
     this.setState({ value: e.target.value });
   }
 
-  onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '390',
-          width: '640',
-          videoId: 'M7lc1UVf-VE',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
+  handleSave() {
+    this.setState({
+      entry: {
+        value: this.state.value,
+        count: this.state.count,
       }
-
-      // 4. The API will call this function when the video player is ready.
-  onPlayerReady(event) {
-    event.target.playVideo();
+    })
   }
-
-  // 5. The API calls this function when the player's state changes.
-  //    The function indicates that when playing a video (state=1),
-  //    the player should play for six seconds and then stop.
-  onPlayerStateChange(event) {
-  // let done = false;
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-      setTimeout(stopVideo, 6000);
-      done = true;
-    }
-  }
-
-  stopVideo() {
-    player.stopVideo();
-  }
-
 
   render() {
 
@@ -77,8 +55,8 @@ class Game extends React.Component {
         <div className="row"> 
 
           <div className="col-xs-4 text-center">
-            <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
             <h1>{this.state.count}</h1>
+            <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
           </div>
 
         </div>
@@ -89,7 +67,7 @@ class Game extends React.Component {
               <FormGroup
                 controlId="formBasicText"
                 validationState={this.getValidationState()}>
-                <ControlLabel>Working example with validation</ControlLabel>
+                <ControlLabel>Name</ControlLabel>
                 <FormControl
                   type="text"
                   value={this.state.value}
@@ -98,13 +76,15 @@ class Game extends React.Component {
                 <FormControl.Feedback />
                 <HelpBlock>Validation is based on string length.</HelpBlock>
               </FormGroup>
+            
+              <Button bsStyle="primary" onClick={this.handleSave.bind(this)} block>Save</Button>
+            
             </form>
-
-            <h1>{this.state.value}</h1>
+            <p>{this.state.entry.count}</p>
+            <p>{this.state.entry.value}</p>
           </div>
 
         </div> 
-
         
       </div>
     );
