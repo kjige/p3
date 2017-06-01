@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button} from 'react-bootstrap';
+import {Button, FormControl, ControlLabel, FormGroup, HelpBlock} from 'react-bootstrap';
 import './index.css';
 
 class Game extends React.Component {
@@ -31,27 +31,6 @@ class Game extends React.Component {
   }
 
   render() {
-    return (
-      <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <ControlLabel>Working example with validation</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>
-        </FormGroup>
-      </form>
-    );
-  }
-});
-  render() {
 
     return (
       <div>
@@ -63,8 +42,24 @@ class Game extends React.Component {
             <h1>{this.state.count}</h1>
 
           </div>
-          
-          
+        </div>
+        <div className="row">
+          <div className="col-xs-4 col-xs-offset-4">
+            <form>
+              <FormGroup
+                controlId="formBasicText"
+                validationState={this.getValidationState()}>
+                <ControlLabel>Working example with validation</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.value}
+                  placeholder="Enter text"
+                  onChange={this.handleChange.bind(this)} />
+                <FormControl.Feedback />
+                <HelpBlock>Validation is based on string length.</HelpBlock>
+              </FormGroup>
+            </form>
+          </div>
         </div> 
       </div>
     );
