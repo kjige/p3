@@ -6,7 +6,7 @@ import './index.css';
 import axios from 'axios';
 
 class Game extends React.Component {
-  //
+  
   constructor(){
     super();
     this.state = {
