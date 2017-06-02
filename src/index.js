@@ -40,6 +40,14 @@ class Game extends React.Component {
         count: this.state.count,
       }
     })
+    this.postSave();
+  }
+
+  postSave() {
+    let newSave = {
+      value: this.state.value,
+      count: this.state.count
+    }
   }
 
   render() {
