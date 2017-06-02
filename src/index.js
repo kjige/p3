@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, FormControl, ControlLabel, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
 import './index.css';
-
+// var axios = require("axios");
+import axios from 'axios';
 
 class Game extends React.Component {
-  
+  //
   constructor(){
     super();
     this.state = {
