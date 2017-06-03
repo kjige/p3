@@ -30,7 +30,9 @@ class Game extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    let newState = {};
+    newState[e.target.id] = e.target.value;
+    this.setState(newState);
   }
 
   handleSave() {
@@ -48,6 +50,10 @@ class Game extends React.Component {
       value: this.state.value,
       count: this.state.count
     }
+    return axios.post("/api/save", newSave)
+      .then(function(res){
+        return res;
+      })
   }
 
   render() {
@@ -61,16 +67,10 @@ class Game extends React.Component {
           <p><Button bsStyle="primary">Learn more</Button></p>
         </Jumbotron>
 
-        <div className="row"> 
-
-          <div className="col-xs-4 text-center">
-            <h1>{this.state.count}</h1>
-            <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
-          </div>
-
-        </div>
         <div className="row">
           <div className="col-xs-4">
+
+            <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
 
             <form>
               <FormGroup
@@ -79,6 +79,7 @@ class Game extends React.Component {
                 <ControlLabel>Name</ControlLabel>
                 <FormControl
                   type="text"
+                  id="value"
                   value={this.state.value}
                   placeholder="Enter text"
                   onChange={this.handleChange.bind(this)} />
@@ -89,10 +90,11 @@ class Game extends React.Component {
               <Button bsStyle="primary" onClick={this.handleSave.bind(this)} block>Save</Button>
             
             </form>
-            <p>{this.state.entry.count}</p>
-            <p>{this.state.entry.value}</p>
           </div>
-
+          <div className="col-xs-4 text-center well">  
+            <h1>{this.state.count}</h1>
+            <h1>{this.state.value}</h1>
+          </div>
         </div> 
         
       </div>
