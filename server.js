@@ -23,7 +23,20 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-mongoose.connect("mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
+mongoose.connect("mongodb://localhost/p3", function(err){
+  if (err) {
+    console.log("Connection Failed!", err);
+  } 
+  
+  else {
+    console.log("Connection Successful!");
+      db = mongoose.connection;
+      init();
+    }
+});
+
+// mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
+
 var db = mongoose.connection;
 
 db.on("error", function(err) {
