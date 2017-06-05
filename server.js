@@ -5,7 +5,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 
 // Require Schemas
-const Article = require("./server/model");
+const Article = require("./model");
 
 // Create Instance of Express
 const app = express();
@@ -31,7 +31,6 @@ mongoose.connect("mongodb://localhost/p3", function(err){
   else {
     console.log("Connection Successful!");
       db = mongoose.connection;
-      init();
     }
 });
 
