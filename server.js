@@ -36,15 +36,15 @@ mongoose.connect("mongodb://localhost/p3", function(err){
 
 // mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
 
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
-db.on("error", function(err) {
-  console.log("Mongoose Error: ", err);
-});
+// db.on("error", function(err) {
+//   console.log("Mongoose Error: ", err);
+// });
 
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
+// db.once("open", function() {
+//   console.log("Mongoose connection successful.");
+// });
 
 
 // -------------------------------------------------
@@ -65,7 +65,7 @@ app.get("/api/saved", function(req, res) {
 });
 
 // Route to add an article to saved list
-app.post("/api/saved", function(req, res) {
+app.post("/api/save", function(req, res) {
   var newArticle = new Article(req.body);
 
   console.log(req.body);

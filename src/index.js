@@ -46,6 +46,7 @@ class Game extends React.Component {
   }
 
   postSave() {
+    console.log('POSTSAVE');
     let newSave = {
       value: this.state.value,
       count: this.state.count

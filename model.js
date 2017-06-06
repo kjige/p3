@@ -6,7 +6,7 @@ var ArticleSchema = new Schema({
   count: {
     type: Number
   },
-  name: {
+  value: {
     type: String
   }
 });
