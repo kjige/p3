@@ -9,7 +9,7 @@ const Article = require("./model");
 
 // Create Instance of Express
 const app = express();
-const PORT = process.env.PORT || 3000; // Sets an initial port. We'll use this later in our listener
+const PORT = process.env.PORT || 4000; // Sets an initial port. We'll use this later in our listener
 
 // Run Morgan for Logging
 app.use(logger("dev"));
@@ -50,7 +50,7 @@ mongoose.connect("mongodb://localhost/p3", function(err){
 // -------------------------------------------------
 
 // Route to get all saved articles
-app.get("/api/saved", function(req, res) {
+app.get("/api/save", function(req, res) {
 
   Article.find({})
     .exec(function(err, doc) {

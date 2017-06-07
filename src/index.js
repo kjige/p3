@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, FormControl, ControlLabel, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
 import './index.css';
-// var axios = require("axios");
 import axios from 'axios';
 
 class Game extends React.Component {
@@ -12,8 +11,20 @@ class Game extends React.Component {
     this.state = {
       count: 0,
       value: '',
-      entry: [],
+      saved: []
     }
+  }
+
+  componentWillMount(){
+    this.getSaved()
+  }
+
+  getSaved(){
+    return axios.get("api/save")
+      .then((res)=>{
+        console.log(res.data);
+        this.setState({saved:res})
+      })
   }
 
   handleClick(){
@@ -46,7 +57,6 @@ class Game extends React.Component {
   }
 
   postSave() {
-    console.log('POSTSAVE');
     let newSave = {
       value: this.state.value,
       count: this.state.count
