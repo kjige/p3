@@ -107,11 +107,11 @@ class Game extends React.Component {
             
             </form>
           </div>
-          <div className="col-xs-4 text-center well">  
+          <div className="col-xs-4 well text-center">  
             <h1>{this.state.count}</h1>
             <h1>{this.state.value}</h1>
           </div>
-          <div className="col-xs-4 well">
+          <div className="col-xs-4">
             <Saved saved={this.state.saved} />
           </div>
         </div> 
