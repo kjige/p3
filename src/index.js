@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Button, FormControl, ControlLabel, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
 import './index.css';
 import axios from 'axios';
+import Saved from "./Saved";
 
 class Game extends React.Component {
   
@@ -15,7 +16,7 @@ class Game extends React.Component {
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.getSaved()
   }
 
@@ -23,7 +24,9 @@ class Game extends React.Component {
     return axios.get("api/save")
       .then((res)=>{
         console.log(res.data);
-        this.setState({saved:res})
+        this.setState({
+          saved:res
+        })
       })
   }
 
@@ -105,6 +108,9 @@ class Game extends React.Component {
           <div className="col-xs-4 text-center well">  
             <h1>{this.state.count}</h1>
             <h1>{this.state.value}</h1>
+          </div>
+          <div className="col-xs-4 well">
+            <Saved saved={this.state.saved} />
           </div>
         </div> 
         
