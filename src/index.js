@@ -20,12 +20,15 @@ class Game extends React.Component {
     this.getSaved()
   }
 
+  componentDidUpdate(){
+    this.getSaved()
+  }
+
   getSaved(){
     return axios.get("api/save")
       .then((res)=>{
-        console.log(res.data);
         this.setState({
-          saved:res
+          saved:res.data
         })
       })
   }
@@ -49,15 +52,15 @@ class Game extends React.Component {
     this.setState(newState);
   }
 
-  handleSave() {
-    this.setState({
-      entry: {
-        value: this.state.value,
-        count: this.state.count,
-      }
-    })
-    this.postSave();
-  }
+  // handleSave() {
+  //   this.setState({
+  //     entry: {
+  //       value: this.state.value,
+  //       count: this.state.count,
+  //     }
+  //   })
+  //   this.postSave();
+  // }
 
   postSave() {
     let newSave = {
@@ -88,7 +91,6 @@ class Game extends React.Component {
 
             <form>
               <FormGroup
-                controlId="formBasicText"
                 validationState={this.getValidationState()}>
                 <ControlLabel>Name</ControlLabel>
                 <FormControl
@@ -101,7 +103,7 @@ class Game extends React.Component {
                 <HelpBlock>Validation is based on string length.</HelpBlock>
               </FormGroup>
             
-              <Button bsStyle="primary" onClick={this.handleSave.bind(this)} block>Save</Button>
+              <Button bsStyle="primary" onClick={this.postSave.bind(this)} block>Save</Button>
             
             </form>
           </div>
