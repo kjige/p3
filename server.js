@@ -1,28 +1,19 @@
-// Include Server Dependencies
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-
-// Require Schemas
 const Article = require("./model");
-
-// Create Instance of Express
 const app = express();
-const PORT = process.env.PORT || 4000; // Sets an initial port. We'll use this later in our listener
+const PORT = process.env.PORT || 4000;
 
-// Run Morgan for Logging
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-
 app.use(express.static("./build"));
 
-// -------------------------------------------------
-
-// MongoDB Configuration configuration
+// mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
 mongoose.connect("mongodb://localhost/p3", function(err){
   if (err) {
     console.log("Connection Failed!", err);
@@ -34,27 +25,9 @@ mongoose.connect("mongodb://localhost/p3", function(err){
     }
 });
 
-// mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
-
-// var db = mongoose.connection;
-
-// db.on("error", function(err) {
-//   console.log("Mongoose Error: ", err);
-// });
-
-// db.once("open", function() {
-//   console.log("Mongoose connection successful.");
-// });
-
-
-// -------------------------------------------------
-
-// Route to get all saved articles
 app.get("/api/save", function(req, res) {
-
   Article.find({})
     .exec(function(err, doc) {
-
       if (err) {
         console.log(err);
       }
@@ -64,12 +37,8 @@ app.get("/api/save", function(req, res) {
     });
 });
 
-// Route to add an article to saved list
 app.post("/api/save", function(req, res) {
   var newArticle = new Article(req.body);
-
-  console.log(req.body);
-
   newArticle.save(function(err, doc) {
     if (err) {
       console.log(err);
@@ -80,11 +49,8 @@ app.post("/api/save", function(req, res) {
   });
 });
 
-// Route to delete an article from saved list
 app.delete("/api/saved/", function(req, res) {
-
-  var url = req.param("url");
-
+  let url = req.param("url");
   Article.find({ url: url }).remove().exec(function(err) {
     if (err) {
       console.log(err);
@@ -95,13 +61,9 @@ app.delete("/api/saved/", function(req, res) {
   });
 });
 
-// Any non API GET routes will be directed to our React App and handled by React Router
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
 });
-
-
-// -------------------------------------------------
 
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
