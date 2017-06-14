@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, FormControl, ControlLabel, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
-import './index.css';
 import axios from 'axios';
 import Saved from "./Saved";
+import './index.css';
+import './ppt.js';
+const pptx = require('pptxgenjs');
+// const pptx = new PptxGenJS();
+const slide = pptx.addNewSlide();
 
 class Game extends React.Component {
   
@@ -14,6 +18,15 @@ class Game extends React.Component {
       value: '',
       saved: []
     }
+  }
+
+  makeSlides() {
+      slide.addText(
+        'TEST',
+        { x:0.0, y:0.25, w:'100%', h:1.5, align:'c', font_size:24, color:'0088CC', fill:'F1F1F1' }
+      );
+    
+  pptx.save('React-slide-test');
   }
 
   componentDidMount(){
@@ -112,7 +125,7 @@ class Game extends React.Component {
             <h1>{this.state.value}</h1>
           </div>
           <div className="col-xs-4">
-            <Saved saved={this.state.saved} />
+            <Saved saved={this.state.saved} makeSlide={this.makeSlides}/>
           </div>
         </div> 
         
