@@ -33,9 +33,9 @@ class Game extends React.Component {
     this.getSaved()
   }
 
-  componentDidUpdate(){
-    this.getSaved()
-  }
+  // componentDidUpdate(){
+  //   this.getSaved()
+  // }
 
   getSaved(){
     return axios.get("api/save")
@@ -84,6 +84,7 @@ class Game extends React.Component {
       .then(function(res){
         return res;
       })
+    this.getSaved();  
   }
 
   render() {
