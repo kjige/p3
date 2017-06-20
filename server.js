@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./build"));
+app.use(cors());
 
 // mongodb://admin:reactrocks@ds023593.mlab.com:23593/heroku_pg676kmk");
 mongoose.connect("mongodb://localhost/p3", function(err){
@@ -49,14 +51,14 @@ app.post("/api/save", function(req, res) {
   });
 });
 
-app.delete("/api/saved/", function(req, res) {
-  let url = req.param("url");
-  Article.find({ url: url }).remove().exec(function(err) {
+app.post("/api/delete/", function(req, res) {
+  console.log("REQ", req.body);
+  Article.find({ _id: req.body._id }).remove().exec(function(err) {
     if (err) {
       console.log(err);
     }
     else {
-      res.send("Deleted");
+      res.send("deleted");
     }
   });
 });

@@ -7,9 +7,9 @@ class Saved extends React.Component {
       {this.props.saved.map((elem,i)=>{
         return(
           <div key={i} className="col-xs-6 well text-center">
-            <h6>{elem.count}</h6>
-            <h6>{elem.value}</h6>
-            <button value={elem.count + elem.value} onClick={this.props.makeSlide}></button>
+            <h6>{elem.artist}</h6>
+            <h6>{elem.title}</h6>
+            <button value={elem._id} onClick={(e)=>this.props.delete(elem._id)}></button>
           </div>
         )
       })}

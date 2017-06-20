@@ -11,13 +11,24 @@ const slide = pptx.addNewSlide();
 
 class Game extends React.Component {
   
-  constructor(){
-    super();
+  componentWillMount(){
     this.state = {
       count: 0,
       value: '',
-      saved: []
+      saved: [],
+      lyrics: '',
+      artist: '',
+      title: ''
     }
+
+  }
+
+  scrape(e){
+    console.log({
+      "artist":this.state.artist, 
+      "title":this.state.title
+    });
+
   }
 
   makeSlides() {
@@ -30,7 +41,7 @@ class Game extends React.Component {
   }
 
   componentDidMount(){
-    this.getSaved()
+    this.getSaved();
   }
 
   // componentDidUpdate(){
@@ -46,45 +57,30 @@ class Game extends React.Component {
       })
   }
 
-  handleClick(){
-    this.setState({
-      count: this.state.count+1
-    });
-  }
-
-  getValidationState() {
-    const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-  }
-
   handleChange(e) {
     let newState = {};
     newState[e.target.id] = e.target.value;
     this.setState(newState);
   }
 
-  // handleSave() {
-  //   this.setState({
-  //     entry: {
-  //       value: this.state.value,
-  //       count: this.state.count,
-  //     }
-  //   })
-  //   this.postSave();
-  // }
-
   postSave() {
     let newSave = {
-      value: this.state.value,
-      count: this.state.count
+      artist: this.state.artist,
+      title: this.state.title
     }
     return axios.post("/api/save", newSave)
       .then(function(res){
         return res;
       })
     this.getSaved();  
+  }
+
+  delete(e) {
+    console.log('REACT',e);
+    return axios.post("api/delete", {"_id": e})
+      .then(function(res){
+        return res;
+      })
   }
 
   render() {
@@ -101,32 +97,39 @@ class Game extends React.Component {
         <div className="row">
           <div className="col-xs-4">
 
-            <Button bsStyle="primary" onClick={this.handleClick.bind(this)} block>Primary</Button>
-
             <form>
-              <FormGroup
-                validationState={this.getValidationState()}>
-                <ControlLabel>Name</ControlLabel>
+              <FormGroup>
+                <ControlLabel>Song Title</ControlLabel>
                 <FormControl
                   type="text"
-                  id="value"
-                  value={this.state.value}
-                  placeholder="Enter text"
+                  id="title"
+                  value={this.state.title}
+                  placeholder="Enter song title"
                   onChange={this.handleChange.bind(this)} />
                 <FormControl.Feedback />
-                <HelpBlock>Validation is based on string length.</HelpBlock>
+
               </FormGroup>
             
+              <Button bsStyle="primary" id="artist" value="hillsong" onClick={this.handleChange.bind(this)} block>Hillsong</Button>
+              <Button bsStyle="primary" id="artist" value="bethel" onClick={this.handleChange.bind(this)} block>Bethel</Button>
               <Button bsStyle="primary" onClick={this.postSave.bind(this)} block>Save</Button>
-            
             </form>
+
           </div>
-          <div className="col-xs-4 well text-center">  
-            <h1>{this.state.count}</h1>
-            <h1>{this.state.value}</h1>
+        </div>
+
+        <div className="row">
+          <div className="col-xs-4 text-center">  
+            <div className="well">
+              <h1>{this.state.artist}</h1>
+              <h1>{this.state.title}</h1>
+            </div>
           </div>
+        </div>
+
+        <div className="row">
           <div className="col-xs-4">
-            <Saved saved={this.state.saved} makeSlide={this.makeSlides}/>
+            <Saved saved={this.state.saved} delete={this.delete}/>
           </div>
         </div> 
         
