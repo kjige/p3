@@ -18,7 +18,9 @@ class Game extends React.Component {
       saved: [],
       lyrics: '',
       artist: '',
-      title: ''
+      title: '',
+      recentSaved: '',
+      recentDelete: ''
     }
 
   }
@@ -44,16 +46,17 @@ class Game extends React.Component {
     this.getSaved();
   }
 
-  // componentDidUpdate(){
-  //   this.getSaved()
-  // }
+  componentWillUpdate(){
+    // this.getSaved()
+  }
 
   getSaved(){
     return axios.get("api/save")
       .then((res)=>{
         this.setState({
-          saved:res.data
-        })
+          saved:[res.data]
+        });
+        console.log(this.state.saved);
       })
   }
 
@@ -71,8 +74,9 @@ class Game extends React.Component {
     return axios.post("/api/save", newSave)
       .then(function(res){
         return res;
+        this.setState({recentSaved: res});  
       })
-    this.getSaved();  
+    this.getSaved();
   }
 
   delete(e) {
@@ -80,6 +84,7 @@ class Game extends React.Component {
     return axios.post("api/delete", {"_id": e})
       .then(function(res){
         return res;
+        this.setState({recentDelete:res});
       })
   }
 
