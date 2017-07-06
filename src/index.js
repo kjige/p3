@@ -77,12 +77,10 @@ class Game extends React.Component {
     this.getSaved();
   }
 
-  delete(e) {
-    axios.post("api/delete", {"_id": e})
-      .then(function(res){
-        return res;
-      });
-    this.getSaved();
+  delete(id) {
+    axios.post("api/delete", {"_id": id}).then((res)=>{
+      return res;
+    });
   }
 
   render() {
@@ -131,7 +129,7 @@ class Game extends React.Component {
 
         <div className="row">
           <div className="col-xs-4">
-            <Saved saved={this.state.saved} delete={this.delete}/>
+            <Saved saved={this.state.saved} delete={this.delete} getSaved={this.getSaved.bind(this)} />
           </div>
         </div> 
         
