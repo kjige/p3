@@ -22,7 +22,6 @@ class Game extends React.Component {
       recentSaved: '',
       recentDelete: ''
     }
-
   }
 
   scrape(e){
@@ -46,17 +45,17 @@ class Game extends React.Component {
     this.getSaved();
   }
 
-  componentWillUpdate(){
-    // this.getSaved()
-  }
+  // componentDidUpdate(){
+  //   this.getSaved();
+  // }
 
   getSaved(){
+    console.log('HIT');
     return axios.get("api/save")
       .then((res)=>{
         this.setState({
-          saved:[res.data]
+          saved:res.data
         });
-        console.log(this.state.saved);
       })
   }
 
@@ -71,21 +70,19 @@ class Game extends React.Component {
       artist: this.state.artist,
       title: this.state.title
     }
-    return axios.post("/api/save", newSave)
+    axios.post("/api/save", newSave)
       .then(function(res){
         return res;
-        this.setState({recentSaved: res});  
-      })
+      });
     this.getSaved();
   }
 
   delete(e) {
-    console.log('REACT',e);
-    return axios.post("api/delete", {"_id": e})
+    axios.post("api/delete", {"_id": e})
       .then(function(res){
         return res;
-        this.setState({recentDelete:res});
-      })
+      });
+    this.getSaved();
   }
 
   render() {

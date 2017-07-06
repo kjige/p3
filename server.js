@@ -58,7 +58,7 @@ app.post("/api/delete/", function(req, res) {
       console.log(err);
     }
     else {
-      res.send("deleted");
+      res.send('deleted');
     }
   });
 });
